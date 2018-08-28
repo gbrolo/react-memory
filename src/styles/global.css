@@ -1,10 +1,5 @@
-body {
-    margin: 0;
-    padding: 0;
-}
-
 .wrapper {
-    margin: 0;
+    margin: 20px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -12,29 +7,16 @@ body {
     align-content: center;
 }
 
-.global-title {
-    color: '#181818';
-    font-size: 2.5em;
+.board {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     text-align: center;
-}
-
-.global-subtitle {
-    color: '#fefefe';
-    font-size: 0.9em;
-    text-align: center;
-}
-
-.global-logo {
-    text-align: center;
-    margin-top: 40px;
-    -webkit-animation: rotation 4s infinite linear;
-}
-
-@-webkit-keyframes rotation {
-    from {
-            -webkit-transform: rotate(0deg);
-    }
-    to {
-            -webkit-transform: rotate(359deg);
-    }
+    padding: 10px 20px 10px 20px;
+    width: 60%;
+    height: auto;
+    background-color: '#181818';
 }
