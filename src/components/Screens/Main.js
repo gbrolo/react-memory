@@ -24,12 +24,32 @@ class Main extends Component {
 
     fillCards() {
         var cards = [];
-        var vals = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+        var vals = [
+            { val: 1, imgUri: '../../../assets/img/bullbasaur.svg'},
+            { val: 1, imgUri: '../../../assets/img/bullbasaur.svg'},
+            { val: 2, imgUri: '../../../assets/img/jigglypuff.svg'},
+            { val: 2, imgUri: '../../../assets/img/jigglypuff.svg'},
+            { val: 3, imgUri: '../../../assets/img/meowth.svg'},
+            { val: 3, imgUri: '../../../assets/img/meowth.svg'},
+            { val: 4, imgUri: '../../../assets/img/pikachu.svg'},
+            { val: 4, imgUri: '../../../assets/img/pikachu.svg'},
+            { val: 5, imgUri: '../../../assets/img/pokeball.svg'},
+            { val: 5, imgUri: '../../../assets/img/pokeball.svg'},
+            { val: 6, imgUri: '../../../assets/img/psyduck.svg'},
+            { val: 6, imgUri: '../../../assets/img/psyduck.svg'},
+            { val: 7, imgUri: '../../../assets/img/snorlax.svg'},
+            { val: 7, imgUri: '../../../assets/img/snorlax.svg'},
+            { val: 8, imgUri: '../../../assets/img/squirtle.svg'},
+            { val: 8, imgUri: '../../../assets/img/squirtle.svg'}
+        ];
 
         for (var i = vals.length-1; i >= 0; i--) {
-            var val = vals.splice(Math.floor(Math.random()*vals.length), 1).pop();
-            cards.push({ id: i, value: val });
+            var element = vals.splice(Math.floor(Math.random()*vals.length), 1).pop();
+            console.log('element', element.imgUri);
+            cards.push({ id: i, value: element.val, imgUri: element.imgUri });
         }
+
+        console.log('cards array is', cards);
 
         return cards;
     }
@@ -63,7 +83,11 @@ class Main extends Component {
         var cards = [];
         for (var i = 0; i < 16; i++) {
             var card = this.state.cards.pop();
-            cards.push(<Col className="slot"><Card id={ card.id } value={ card.value } /></Col>);
+            cards.push(
+                <Col className="slot">
+                    <Card id={ card.id } value={ card.value } imgUri={ card.imgUri } />
+                </Col>
+            );
         }
 
         return cards;

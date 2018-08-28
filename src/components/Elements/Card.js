@@ -9,19 +9,23 @@ class Card extends Component {
             id: this.props.id,
             value: this.props.value,
             isFlipped: false,
-            imgUri: ''
+            imgUri: this.props.imgUri || '../../../assets/img/r-logo.png'
         }
+        
+        this.flipCard = this.flipCard.bind(this);
     }
 
     flipCard() {
         console.log(this.state.value);
+        var status = this.state.isFlipped;
+        this.setState({ isFlipped: !status });
     }
 
     render() {
         if (this.state.isFlipped) {
             return (
-                <div className="card-flipped">
-                    
+                <div className="card-flipped" onClick={ () => this.flipCard() }>
+                    <img width="50" src={ this.state.imgUri } />
                 </div>
             );
         } else {
