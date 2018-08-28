@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import Card from '../Elements/Card'
 import '../../styles/global.css';
 
@@ -8,63 +9,57 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            cards: []
+            cards: this.fillCards()        
         }
     }
 
     componentWillMount() {
         // fill data
         console.log('component mounted');
+        console.log(this.state.cards);
+    }
 
-        for (var i = 0; i < 16; i++) {
-            
+    fillCards() {
+        var cards = [];
+        var vals = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+
+        for (var i = vals.length-1; i >= 0; i--) {
+            var val = vals.splice(Math.floor(Math.random()*vals.length), 1).pop();
+            cards.push({ id: i, value: val });
         }
-        
 
+        return cards;
     }
 
     render() {
         return (
             <div className="wrapper">
-                {/*
-                
-                    <div className="global-logo">
-                        <img width="100" height="100" src={'../../../assets/img/react-logo.png'} />
-                    </div>
-                    <div className="global-title">
-                        React Starter
-                    </div>
-                    <div className="global-subtitle">
-                        A simple React boilerplate made with Webpack 4 and Babel 5.6
-                    </div>
-                
-                */}
-
-                <div className="board" style={{ background: '#181818' }}>
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />                    
-                </div>
-                <div className="board" style={{ background: '#181818' }}>
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />                    
-                </div>
-                <div className="board" style={{ background: '#181818' }}>
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />                    
-                </div>
-                <div className="board" style={{ background: '#181818' }}>
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />
-                    <Card id={0} value={0} />                    
-                </div>
-
+                <Container style={{ background: '#181818', width: '50%' }}>
+                    <Row>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                    </Row>
+                    <Row>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                    </Row>
+                    <Row>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                    </Row>
+                    <Row>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                        <Col className="slot"><Card id={0} value={0} /></Col>
+                    </Row>
+                </Container>
              </div>
         );
     }
