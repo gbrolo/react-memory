@@ -13,6 +13,10 @@ class Card extends Component {
         }
     }
 
+    flipCard() {
+        console.log(this.state.value);
+    }
+
     render() {
         if (this.state.isFlipped) {
             return (
@@ -22,7 +26,7 @@ class Card extends Component {
             );
         } else {
             return (
-                <div className="card-down">
+                <div className="card-down" onClick={ () => this.flipCard() }>
                     <img width="50" src={'../../../assets/img/r-logo.png'} />
                 </div>
             );

@@ -3,8 +3,13 @@
     width: 100px;
     height: 100px;
     border-radius: 10px;
-    background-color: #2d2c2c;
+    background-color: #0c87a0;
     text-align: center;
-    border-color: #181818;
+    border-color: #097489;
     border: 2px solid;
+    box-shadow: 5px 5px #08697c;
+}
+
+.card-down:hover {
+    background-color: #0a96b2;
 }
