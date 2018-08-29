@@ -10,7 +10,7 @@ class Card extends Component {
             value: this.props.value,
             isFlipped: this.props.isFlipped || false,
             imgUri: this.props.imgUri || '../../../assets/img/r-logo.png',
-            locked: false
+            locked: this.props.locked || false
         }
         
         this.flipCard = this.flipCard.bind(this);
@@ -41,19 +41,19 @@ class Card extends Component {
     render() {
         if (this.state.locked) {
             return (
-                <div className="card-locked" >
+                <div className="card-locked" id={ this.state.id } >
                     <img width="50" src={ this.state.imgUri } />
                 </div>
             );
         } else if (this.state.isFlipped) {
             return (
-                <div className="card-flipped" onClick={ () => this.flipCard() }>
+                <div className="card-flipped" onClick={ () => this.flipCard() } id={ this.state.id }>
                     <img width="50" src={ this.state.imgUri } />
                 </div>
             );
         } else {
             return (
-                <div className="card-down" onClick={ () => this.flipAndCheck() }>
+                <div className="card-down" onClick={ () => this.flipAndCheck() } id={ this.state.id }>
                     <img width="50" src={'../../../assets/img/r-logo.png'} />
                 </div>
             );

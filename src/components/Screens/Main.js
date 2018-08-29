@@ -43,7 +43,8 @@ class Main extends Component {
                 localStorage.setItem('previousValue', JSON.stringify(null));
 
                 setTimeout(() => {
-                    document.getElementById(id).style.background = '#0fbf49';
+                    document.getElementById(previous.id).style.background = '#0fbf49';
+                    document.getElementById(previous.id).style.pointerEvents = 'none';
                 }, 1000);                 
 
                 return 'match';
@@ -117,15 +118,13 @@ class Main extends Component {
             var card = this.state.cards.pop();
             cards.push(
                 <Col className="slot">
-                    <div id={ card.id }>
-                        <Card 
-                            id={ card.id } 
-                            value={ card.value } 
-                            imgUri={ card.imgUri } 
-                            checkMatch={ this.checkMatch }
-                            isFlipped={ false }
-                        />
-                    </div>                
+                    <Card 
+                        id={ card.id } 
+                        value={ card.value } 
+                        imgUri={ card.imgUri } 
+                        checkMatch={ this.checkMatch }
+                        isFlipped={ false }
+                    />                
                 </Col>
             );
         }
