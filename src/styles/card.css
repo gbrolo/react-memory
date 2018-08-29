@@ -21,6 +21,17 @@
     background-color: white;
 }
 
+.card-locked {
+    padding-top: 22px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid;
+    box-shadow: 5px 5px #08697c;
+    background-color: #0fbf49;
+}
+
 .card-down:hover {
     background-color: #0a96b2;
 }

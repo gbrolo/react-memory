@@ -8,11 +8,13 @@ class Card extends Component {
         this.state = {
             id: this.props.id,
             value: this.props.value,
-            isFlipped: false,
-            imgUri: this.props.imgUri || '../../../assets/img/r-logo.png'
+            isFlipped: this.props.isFlipped || false,
+            imgUri: this.props.imgUri || '../../../assets/img/r-logo.png',
+            locked: false
         }
         
         this.flipCard = this.flipCard.bind(this);
+        this.flipAndCheck = this.flipAndCheck.bind(this);
     }
 
     flipCard() {
@@ -21,8 +23,29 @@ class Card extends Component {
         this.setState({ isFlipped: !status });
     }
 
+    flipAndCheck() {
+        this.flipCard();
+        var check = this.props.checkMatch(this.state.value, this.state.id);
+
+        if (check === 'match') {
+            setTimeout(() => {
+                this.setState({ locked: true });
+            }, 1000);            
+        } else if (check === 'noMatch') {
+            setTimeout(() => {
+                this.setState({ isFlipped: false });
+            }, 1000);
+        }
+    }
+
     render() {
-        if (this.state.isFlipped) {
+        if (this.state.locked) {
+            return (
+                <div className="card-locked" >
+                    <img width="50" src={ this.state.imgUri } />
+                </div>
+            );
+        } else if (this.state.isFlipped) {
             return (
                 <div className="card-flipped" onClick={ () => this.flipCard() }>
                     <img width="50" src={ this.state.imgUri } />
@@ -30,7 +53,7 @@ class Card extends Component {
             );
         } else {
             return (
-                <div className="card-down" onClick={ () => this.flipCard() }>
+                <div className="card-down" onClick={ () => this.flipAndCheck() }>
                     <img width="50" src={'../../../assets/img/r-logo.png'} />
                 </div>
             );

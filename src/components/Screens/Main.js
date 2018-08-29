@@ -2,24 +2,56 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Card from '../Elements/Card'
 import '../../styles/global.css';
+import '../../styles/card.css';
 
 class Main extends Component {
-
     constructor(props) {
         super(props);
 
         var iCards = this.fillCards();
 
+        localStorage.setItem('previousValue', JSON.stringify(null));
+
         this.state = {
             cards: iCards,
-            initialCards: iCards       
+            initialCards: iCards,
+            previousValue: null
         }
+
+        this.fillCards = this.fillCards.bind(this);
+        this.renderCards = this.renderCards.bind(this);
+        this.renderInsideCards = this.renderInsideCards.bind(this);
+        this.checkMatch = this.checkMatch.bind(this);
     }
 
     componentWillMount() {
         // fill data
         console.log('component mounted');
         console.log(this.state.cards);
+    }
+
+    checkMatch(value, id) {
+        console.log('received value is', value);
+        var previous = JSON.parse(localStorage.getItem('previousValue'));
+        console.log('previousValue stored is', previous);
+        if (!previous) {
+            localStorage.setItem('previousValue', JSON.stringify({ value: value, id: id }));
+            return 'null';
+        } else {
+            if (value === previous.value) {
+                console.log('match');
+                localStorage.setItem('previousValue', JSON.stringify(null));
+
+                setTimeout(() => {
+                    document.getElementById(id).style.background = '#0fbf49';
+                }, 1000);                 
+
+                return 'match';
+            } else {
+                localStorage.setItem('previousValue', JSON.stringify(null));                
+                return 'noMatch';
+            };
+        }
     }
 
     fillCards() {
@@ -85,7 +117,15 @@ class Main extends Component {
             var card = this.state.cards.pop();
             cards.push(
                 <Col className="slot">
-                    <Card id={ card.id } value={ card.value } imgUri={ card.imgUri } />
+                    <div id={ card.id }>
+                        <Card 
+                            id={ card.id } 
+                            value={ card.value } 
+                            imgUri={ card.imgUri } 
+                            checkMatch={ this.checkMatch }
+                            isFlipped={ false }
+                        />
+                    </div>                
                 </Col>
             );
         }
