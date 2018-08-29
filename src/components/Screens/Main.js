@@ -11,6 +11,8 @@ class Main extends Component {
         var iCards = this.fillCards();
 
         localStorage.setItem('previousValue', JSON.stringify(null));
+        localStorage.setItem('matches', JSON.stringify(0));
+        localStorage.setItem('ticks', JSON.stringify(0));
 
         this.state = {
             cards: iCards,
@@ -24,28 +26,28 @@ class Main extends Component {
         this.checkMatch = this.checkMatch.bind(this);
     }
 
-    componentWillMount() {
-        // fill data
-        console.log('component mounted');
-        console.log(this.state.cards);
-    }
-
     checkMatch(value, id) {
-        console.log('received value is', value);
         var previous = JSON.parse(localStorage.getItem('previousValue'));
-        console.log('previousValue stored is', previous);
         if (!previous) {
             localStorage.setItem('previousValue', JSON.stringify({ value: value, id: id }));
             return 'null';
         } else {
-            if (value === previous.value) {
-                console.log('match');
+            if ((value === previous.value) && (id != previous.id)) {
                 localStorage.setItem('previousValue', JSON.stringify(null));
 
                 setTimeout(() => {
                     document.getElementById(previous.id).style.background = '#0fbf49';
                     document.getElementById(previous.id).style.pointerEvents = 'none';
-                }, 1000);                 
+                }, 1000);   
+                
+                var matches = JSON.parse(localStorage.getItem('matches'));
+                matches = matches + 1;
+
+                if (matches === 8) {
+                    document.getElementById('won').style.display = 'flex';
+                }
+
+                localStorage.setItem('matches', JSON.stringify(matches));
 
                 return 'match';
             } else {
@@ -78,11 +80,8 @@ class Main extends Component {
 
         for (var i = vals.length-1; i >= 0; i--) {
             var element = vals.splice(Math.floor(Math.random()*vals.length), 1).pop();
-            console.log('element', element.imgUri);
             cards.push({ id: i, value: element.val, imgUri: element.imgUri });
         }
-
-        console.log('cards array is', cards);
 
         return cards;
     }
@@ -114,8 +113,9 @@ class Main extends Component {
 
     renderInsideCards() {
         var cards = [];
+        var stateCards = this.state.cards;
         for (var i = 0; i < 16; i++) {
-            var card = this.state.cards.pop();
+            var card = stateCards.pop();
             cards.push(
                 <Col className="slot">
                     <Card 
@@ -134,11 +134,11 @@ class Main extends Component {
 
     render() {
         return (
-            <div className="wrapper">
+            <div className="wrapper">                
                 <Container style={{ 
                     background: '#16a2bf', 
                     width: '50%', 
-                    padding: '40px', 
+                    padding: '20px', 
                     borderRadius: '40px',
                     color: '#097489',
                     border: 'solid 3px',
@@ -146,7 +146,13 @@ class Main extends Component {
                     boxShadow: '10px 10px #08697c'}}>
                     { this.renderCards() }
                 </Container>
-             </div>
+
+                <div className="won" id="won">
+                    <div className="won-circle">
+                        <img width="70%" src={'../../assets/img/win.svg'} />                        
+                    </div>                 
+                </div>
+             </div>             
         );
     }
 

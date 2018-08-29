@@ -6,8 +6,8 @@ class Card extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
-            value: this.props.value,
+            id: this.props.id || 100,
+            value: this.props.value || 100,
             isFlipped: this.props.isFlipped || false,
             imgUri: this.props.imgUri || '../../../assets/img/r-logo.png',
             locked: this.props.locked || false
@@ -18,7 +18,6 @@ class Card extends Component {
     }
 
     flipCard() {
-        console.log(this.state.value);
         var status = this.state.isFlipped;
         this.setState({ isFlipped: !status });
     }
@@ -35,6 +34,10 @@ class Card extends Component {
             setTimeout(() => {
                 this.setState({ isFlipped: false });
             }, 1000);
+        } if (check === 'null') {
+            setTimeout(() => {
+                this.setState({ isFlipped: false });
+            }, 2000); 
         }
     }
 
@@ -42,6 +45,9 @@ class Card extends Component {
         if (this.state.locked) {
             return (
                 <div className="card-locked" id={ this.state.id } >
+                    <div className="gotcha">
+                        <img width="50" src={'../../../assets/img/gotcha.svg'} />
+                    </div>                    
                     <img width="50" src={ this.state.imgUri } />
                 </div>
             );
