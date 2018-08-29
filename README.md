@@ -1,15 +1,5 @@
-# react-starter
-A React boilerplate to init a simple project
+# react-memory
+A simple memory game made with React.
 
-## Bundler
-This boilerplate uses:
-
-* Webpack 4
-* Babel 5
-* Css-loader
-* Style-loader
-* html-webpack-plugin
-* webpack-dev-server
-
-## Installation
+## Running the game
 Run ```npm install``` or ```yarn install```. After installation run ```npm start``` or ```yarn start```.
